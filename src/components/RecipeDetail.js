@@ -3,16 +3,61 @@ import {recipe} from '../tempDetail';
 
 export default class RecipeDetails extends Component {
 
-    constructor(props){
-        super(props);
-        this.state={
-            recipe:recipe,
-            url:'https://www.food2fork.com/api/get?key=349711cc72ab5138db9810284f664853&rId='+this.props.id
-        }
+    // constructor(props){
+    //     super(props);
+    //     this.state={
+    //         recipe:recipe,
+    //         url:'https://www.food2fork.com/api/get?key=349711cc72ab5138db9810284f664853&rId='+this.props.id
+    //     }
+    // }
+
+    state={
+        recipe: recipe
     }
 
+    async componentDidMount(){
+        console.log( "recipe detail id " +this.props.id);
+        const id = this.props.id;
+        const url ="https://www.food2fork.com/api/get?key=349711cc72ab5138db9810284f664853&rId="+id;
+
+        try{
+
+            const data=await fetch(url);
+            const jsonData =await data.json();
+
+            console.log("json data "+ JSON.stringify(jsonData) );
+
+            this.setState((state, props)=>{
+                return {recipe:jsonData.recipe};
+            },()=>{});
+
+        }catch(err){
+            console.log(err);
+        }
+
+    }
+
+
+    // async componentDidMount(){
+    //     try{
+
+    //         const data=await fetch(this.state.url);
+    //         const jsonData =await data.json();
+    //          this.setState({
+    //             recipe:jsonData.recipe
+    //         });
+        
+    //      }catch(err){
+    //         console.log(err);
+    //     }
+        
+    // }
+
+
   render() {
-      console.log("data detail"+ JSON.stringify(this.state.recipe) );
+     console.log(
+      "recipe " + this.state.recipe
+     )
 
         const {
             image_url,
@@ -21,7 +66,9 @@ export default class RecipeDetails extends Component {
             source_url,
             title,
             ingredients
-        }= this.state.recipe;
+        } = this.state.recipe;
+
+        
 
     return (
       <React.Fragment>
