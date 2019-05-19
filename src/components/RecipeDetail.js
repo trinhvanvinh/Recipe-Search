@@ -18,7 +18,7 @@ export default class RecipeDetails extends Component {
     async componentDidMount(){
         console.log( "recipe detail id " +this.props.id);
         const id = this.props.id;
-        const url ="https://www.food2fork.com/api/get?key=349711cc72ab5138db9810284f664853&rId="+id;
+        const url ="https://www.food2fork.com/api/get?key=e56c29f6a4ff14e4c3b51699ec87b746&rId="+id;
 
         try{
 
@@ -68,14 +68,19 @@ export default class RecipeDetails extends Component {
             ingredients
         } = this.state.recipe;
 
-        
+        const {handleIndex} = this.props;
 
     return (
       <React.Fragment>
          <div className="container" >
             <div className="row" >
                 <div className="col-10 mx-auto col-md-6 my-3" >
-                    <button type="button" className="btn btn-warning mb-5 text-capitalize" >back to recipe list</button>
+                    <button
+                     type="button"
+                     onClick={()=>handleIndex(1)}
+                    className="btn btn-warning mb-5 text-capitalize" >
+                        back to recipe list
+                    </button>
                     <img src={image_url} className="d-block w-100" alt="recipe"  />
                 </div>
 
